@@ -28,11 +28,9 @@ function draw() {
     
     switch (pageName) {
       case 'page1':
-      alert(
-        'page1'
-      );
+     
         // display the first page with an image and text
-        image('image.jpg', 50, 50);
+       // image('image.png', 50, 50);
         textAlign(CENTER, CENTER);
         fill(255);
         textSize(72);
@@ -40,9 +38,6 @@ function draw() {
         break;
       
       case 'page2':
-      alert(
-        'page2'
-      );
         // display the second page with audio and video
         let url = 'video.mp4';
         video(url).play();
@@ -88,6 +83,10 @@ function onKeyPressed() {
     }
   }
 }
+window.addEventListener("click", function() {
+  currentPage++;
+  draw();
+ });
 //if (!hasTouch()) {
  // addEventListener("click", function() {
   //  document.getElementById("nextBtn").click();
