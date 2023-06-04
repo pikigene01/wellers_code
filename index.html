@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>P5 JS MultiMedia Story Telling</title>
+</head>
+<body>
+  <script>
+let currentPage = 0;
+const pages = ['page1', 'page2', 'page3']; // list of page names
+
+function setup() {
+  createCanvas(640, 960);
+}
+
+function draw() {
+  background(0, 0, 0);
+  
+  if (currentPage < pages.length) {
+    let pageName = pages[currentPage];
+    
+    switch (pageName) {
+      case 'page1':
+        // display the first page with an image and text
+        image('image1.jpg', 50, 50);
+        textAlign(CENTER, CENTER);
+        fill(255);
+        textSize(72);
+        text('Hello! This is Page 1', width / 2, height / 2 - 80);
+        break;
+      
+      case 'page2':
+        // display the second page with audio and video
+        let url = 'video.mp4';
+        video(url).play();
+        
+        let urlAudio = 'audio.mp3';
+        audio(urlAudio);
+        audio.loop();
+        
+        noFill();
+        stroke(0);
+        rect(width / 2, height / 2, width / 4, height / 2 + 100);
+        break;
+      
+      case 'page3':
+        // display the third page with interactive elements
+        let xPos = mouseX - width / 2;
+        let yPos = height / 2;
+        ellipse(xPos, yPos, width / 4 * 2, height / 2 + 50);
+        if (mouseIsPressed && mouseButton === LEFT_BUTTON && dist(mouseX, mouseY, xPos, yPos) <= 100) {
+          // handle user click event here
+        }
+        break;
+    }
+  } else {
+    // end of the story, display final message or next button
+    textSize(72);
+    text("The End", width / 2, height / 2 - 80);
+  }
+}
+
+function onKeyPressed() {
+  // allow user to navigate through the story using arrow keys
+  if (key === UP_ARROW || key === DOWN_ARROW) {
+    if (key === UP_ARROW) {
+      currentPage--;
+    } else {
+      currentPage++;
+    }
+    if (currentPage >= pages.length) {
+      currentPage = pages.length - 1;
+    } else if (currentPage == 0) {
+      currentPage = 1;
+    }
+  }
+}
+if (!hasTouch()) {
+  addEventListener("click", function() {
+    document.getElementById("nextBtn").click();
+  });
+}
+</script>
+</body>
+</html>
