@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.dom.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.sound.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <meta charset="utf-8" />
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,8 +28,11 @@ function draw() {
     
     switch (pageName) {
       case 'page1':
+      alert(
+        'page1'
+      );
         // display the first page with an image and text
-        image('image1.jpg', 50, 50);
+        image('image.jpg', 50, 50);
         textAlign(CENTER, CENTER);
         fill(255);
         textSize(72);
@@ -32,6 +40,9 @@ function draw() {
         break;
       
       case 'page2':
+      alert(
+        'page2'
+      );
         // display the second page with audio and video
         let url = 'video.mp4';
         video(url).play();
@@ -77,11 +88,11 @@ function onKeyPressed() {
     }
   }
 }
-if (!hasTouch()) {
-  addEventListener("click", function() {
-    document.getElementById("nextBtn").click();
-  });
-}
+//if (!hasTouch()) {
+ // addEventListener("click", function() {
+  //  document.getElementById("nextBtn").click();
+ // });
+//}
 </script>
 </body>
 </html>
