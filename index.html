@@ -17,14 +17,41 @@ let currentPage = 0;
 const pages = ['page1', 'page2', 'page3']; // list of page names
 let img;
 let videoImg;
+let playing = false;
+let fingers;
+let button;
+let next_button;
+let prev_button;
 
 function setup() {
-  createCanvas(640, 960);
-  img = loadImage('image.png');
+  //noCanvas();
+  createCanvas(640, 500);
+  img = loadImage('http://127.0.0.1:5500/image.png');
+  // specify multiple formats for different browsers
+  fingers = createVideo(['assets/video.mp4', 'assets/fingers.mp4']);
+  fingers.hide();
+  button = createButton('play');
+  next_button = createButton('Next Page');
+  next_button.mousePressed(goNext); // attach button listener
+  prev_button = createButton('prev Page');
+  prev_button.mousePressed(goPrev); // attach button listener
+  button.mousePressed(toggleVid); // attach button listener
+}
+
+// plays or pauses the video depending on current state
+function toggleVid() {
+  if (playing) {
+    fingers.pause();
+    button.html('play');
+  } else {
+    fingers.loop();
+    button.html('pause');
+  }
+  playing = !playing;
 }
 
 function draw() {
- background(0, 0, 0);
+  background(150);
   
   if (currentPage < pages.length) {
     let pageName = pages[currentPage];
@@ -42,13 +69,17 @@ function draw() {
       
       case 'page2':
         // display the second page with audio and video
-        let url = 'video.mp4';
+        text('Hello! Play Video', width / 2, height / 4 - 80);
+        image(fingers, 10, 10); // draw the video frame to canvas
+        filter(GRAY);
+        image(fingers, 0, 0);
+       /* let url = 'video.mp4';
         video(url).play();
         
         let urlAudio = 'audio.mp3';
         audio(urlAudio);
         audio.loop();
-        
+        */
         noFill();
         stroke(0);
         rect(width / 2, height / 2, width / 4, height / 2 + 100);
@@ -59,9 +90,9 @@ function draw() {
         let xPos = mouseX - width / 2;
         let yPos = height / 2;
         ellipse(xPos, yPos, width / 4 * 2, height / 2 + 50);
-        if (mouseIsPressed && mouseButton === LEFT_BUTTON && dist(mouseX, mouseY, xPos, yPos) <= 100) {
+      //  if (mouseIsPressed && mouseButton === LEFT_BUTTON && dist(mouseX, mouseY, xPos, yPos) <= 100) {
           // handle user click event here
-        }
+       // }
         break;
     }
   } else {
@@ -69,6 +100,16 @@ function draw() {
     textSize(72);
     text("The End", width / 2, height / 2 - 80);
   }
+}
+
+function goPrev(){
+  currentPage--;
+  draw();
+}
+
+function goNext(){
+  currentPage++;
+  draw();
 }
 
 function onKeyPressed() {
@@ -87,8 +128,7 @@ function onKeyPressed() {
   }
 }
 window.addEventListener("click", function() {
-  currentPage++;
-  draw();
+ 
  });
 //if (!hasTouch()) {
  // addEventListener("click", function() {
