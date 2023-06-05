@@ -15,13 +15,16 @@
   <script>
 let currentPage = 0;
 const pages = ['page1', 'page2', 'page3']; // list of page names
+let img;
+let videoImg;
 
 function setup() {
   createCanvas(640, 960);
+  img = loadImage('image.png');
 }
 
 function draw() {
-  background(0, 0, 0);
+ background(0, 0, 0);
   
   if (currentPage < pages.length) {
     let pageName = pages[currentPage];
@@ -30,7 +33,7 @@ function draw() {
       case 'page1':
      
         // display the first page with an image and text
-       // image('image.png', 50, 50);
+        image(img, 0, 0);
         textAlign(CENTER, CENTER);
         fill(255);
         textSize(72);
